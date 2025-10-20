@@ -1,23 +1,104 @@
+import { useState } from "react";
 import Tag from "../Tag/Tag";
 import "./task-form.css";
 
 const TaskForm = () => {
+  const [taskData, setTaskData] = useState({
+    task: "",
+    status: "Ready for development",
+    tags: [],
+  });
+
+  const checkTag = (tag) => {
+    return taskData.tags.some((item) => item === tag);
+  };
+
+  // this handleChange handles task and dropdown
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setTaskData((prev) => {
+  //     return { ...prev, [name]: value };
+  //   });
+  // };
+
+  // practise ✅
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTaskData((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  // handling form submit refresh defualt beheviour
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(taskData);
+  };
+
+  // selecting tag
+  const selectedTag = (tag) => {
+    // this logic is to unselect the selected tag eg. if we selected QT and letter on we have to change it
+    // so we can unselect it by clicking on it again.
+    if (taskData.tags.some((item) => item === tag)) {
+      const filterTags = taskData.tags.filter((item) => item !== tag);
+      setTaskData((prev) => {
+        return { ...prev, tags: filterTags };
+      });
+    } else {
+      setTaskData((prev) => {
+        return { ...prev, tags: [...prev.tags, tag] };
+      });
+    }
+  };
+  console.log(taskData);
+
+  // this is old method to handle state of every input field using multiple states
+  // const [task, setTask] = useState("");
+  // const [status, setStatus] = useState("");
+  // const handleTask = (e) => {
+  //   setTask(e.target.value);
+  // };
+
+  // const handleStatusChange = (e) => {
+  //   setStatus(e.ta rget.value);
+  // };
+  // console.log(task, status);
   return (
     <header className="app_header">
-      <form action="">
+      <form action="" onSubmit={handleSubmit}>
         <input
           type="text"
+          name="task"
+          onChange={handleChange}
           className="task_input"
           placeholder="Enter task details"
         />
         <div className="task_form_bottom">
           <div>
-            <Tag tagName="DEV"/>
-            <Tag  tagName="QA" />
-            <Tag tagName="Product Owner" />
+            <Tag
+              tagName="DEV"
+              selectedTag={selectedTag}
+              selected={checkTag("DEV")}
+            />
+            <Tag
+              tagName="QA"
+              selectedTag={selectedTag}
+              selected={checkTag("QA")}
+            />
+            <Tag
+              tagName="Product Owner"
+              selectedTag={selectedTag}
+              selected={checkTag("Product Owner")}
+            />
           </div>
           <div>
-            <select name="" id="" className="tast_status">
+            <select
+              id=""
+              name="status"
+              className="tast_status"
+              onChange={handleChange}
+            >
               <option value="Ready for Development">
                 Ready for Development
               </option>
