@@ -2,7 +2,7 @@ import { useState } from "react";
 import Tag from "../Tag/Tag";
 import "./task-form.css";
 
-const TaskForm = () => {
+const TaskForm = ({ setTasks }) => {
   const [taskData, setTaskData] = useState({
     task: "",
     status: "Ready for development",
@@ -33,24 +33,39 @@ const TaskForm = () => {
   // handling form submit refresh defualt beheviour
   const handleSubmit = (e) => {
     e.preventDefault();
+    setTasks((prev) => {
+      return [...prev, taskData];
+    });
     console.log(taskData);
   };
 
   // selecting tag
+
   const selectedTag = (tag) => {
-    // this logic is to unselect the selected tag eg. if we selected QT and letter on we have to change it
-    // so we can unselect it by clicking on it again.
-    if (taskData.tags.some((item) => item === tag)) {
-      const filterTags = taskData.tags.filter((item) => item !== tag);
-      setTaskData((prev) => {
-        return { ...prev, tags: filterTags };
-      });
-    } else {
-      setTaskData((prev) => {
-        return { ...prev, tags: [...prev.tags, tag] };
-      });
-    }
+    setTaskData((prev) => {
+      const isSelected = prev.tags.includes(tag);
+      const tags = isSelected
+        ? prev.tags.filter((item) => item !== tag)
+        : [...prev.tags, tag];
+      return { ...prev, tags };
+    });
   };
+
+  // const selectedTag = (tag) => {
+  //   // this logic is to unselect the selected tag eg. if we selected QT and letter on we have to change it
+  //   // so we can unselect it by clicking on it again.
+  //   if (taskData.tags.some((item) => item === tag)) {
+  //     const filterTags = taskData.tags.filter((item) => item !== tag);
+  //     setTaskData((prev) => {
+  //       return { ...prev, tags: filterTags };
+  //     });
+  //   } else {
+  //     setTaskData((prev) => {
+  //       return { ...prev, tags: [...prev.tags, tag] };
+  //     });
+  //   }
+  // };
+
   console.log(taskData);
 
   // this is old method to handle state of every input field using multiple states
@@ -64,9 +79,11 @@ const TaskForm = () => {
   //   setStatus(e.ta rget.value);
   // };
   // console.log(task, status);
+
   return (
     <header className="app_header">
       <form action="" onSubmit={handleSubmit}>
+        {/* task input */}
         <input
           type="text"
           name="task"
@@ -75,6 +92,7 @@ const TaskForm = () => {
           placeholder="Enter task details"
         />
         <div className="task_form_bottom">
+          {/* tags */}
           <div>
             <Tag
               tagName="DEV"
@@ -92,6 +110,7 @@ const TaskForm = () => {
               selected={checkTag("Product Owner")}
             />
           </div>
+          {/* select option */}
           <div>
             <select
               id=""
@@ -99,7 +118,7 @@ const TaskForm = () => {
               className="tast_status"
               onChange={handleChange}
             >
-              <option value="Ready for Development">
+              <option value="Ready for development">
                 Ready for Development
               </option>
               <option value="In Progress">In Progress</option>

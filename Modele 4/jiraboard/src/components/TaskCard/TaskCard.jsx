@@ -1,10 +1,10 @@
 import Tag from "../Tag/Tag";
 import "./TaskCard.css";
 import DeleteIcon from '../../assets/deletezbtn.png'
-const TaskCard = () => {
+const TaskCard = ({title,tags}) => {
   return (
     <article className="task_card">
-      <p className="task_text">this is sample text</p>
+      <p className="task_text">{title}</p>
       <div className="task_card_bottom_line">
         <div className="task_card_tags">
           <Tag tagName="DEV" />
