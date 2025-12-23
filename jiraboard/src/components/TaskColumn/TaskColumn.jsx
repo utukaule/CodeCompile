@@ -1,3 +1,4 @@
+import TaskCard from "../Task Card/TaskCard";
 import "./TaskColumn.css";
 
 const TaskColumn = (props) => {
@@ -9,6 +10,7 @@ const TaskColumn = (props) => {
          {closedIcon && <img src={closedIcon} className="task_column_icon"></img>}
           {title}
         </h2>
+        <TaskCard/>
       </section>
     </div>
   );

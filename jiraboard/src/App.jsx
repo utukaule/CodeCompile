@@ -1,7 +1,7 @@
 import "./App.css";
 import TaskForm from "./components/Task Form/TaskForm";
 import TaskColumn from "./components/TaskColumn/TaskColumn";
-import {closedIcon} from './assets/tick.png'
+import closedIcon from "./assets/tick.png";
 const App = () => {
   return (
     <div className="app">
@@ -11,7 +11,7 @@ const App = () => {
         <TaskColumn title="Ready for Development" />
         <TaskColumn title="In Progress" />
         <TaskColumn title="Ready for Test" />
-        <TaskColumn title="Closed" closedIcon = {closedIcon} />
+        <TaskColumn title="Closed" closedIcon={closedIcon} />
       </main>
     </div>
   );
