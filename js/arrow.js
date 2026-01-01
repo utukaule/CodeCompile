@@ -40,3 +40,12 @@ console.log(findIndexResult);
 // reduce
 let reduceResult = user.reduce((sum, user) => sum + user.price, 0);
 console.log(reduceResult);
+
+let reduceResult2 = user.reduce(
+  (multi, user) => (multi * user.price)/1000,
+  user[0].price
+);
+console.log(reduceResult2);
+
+let reduceRivision = user.reduce((subtract, user) => user.price - subtract, 0);
+console.log(reduceRivision);
