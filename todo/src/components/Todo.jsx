@@ -20,9 +20,14 @@ const Todo = () => {
   };
 
   const handleComplete = (id) => {
+    // setTodos((prev) =>
+    //   prev.map((item) =>
+    //     item.id == id ? { ...item, isCompeleted: !item.isCompeleted } : item,
+    //   ),
+    // );
     setTodos((prev) =>
       prev.map((item) =>
-        item.id == id ? { ...item, isCompeleted: !item.isCompeleted } : item,
+        item.id === id ? { ...item, isCompeleted: !item.isCompeleted } : item,
       ),
     );
   };
@@ -47,6 +52,7 @@ const Todo = () => {
               <span
                 style={{
                   marginLeft: "8px",
+                  // textDecoration: item.isCompeleted ? "line-through" : "none",
                   textDecoration: item.isCompeleted ? "line-through" : "none",
                   opacity: item.isCompeleted ? 0.6 : 1,
                 }}

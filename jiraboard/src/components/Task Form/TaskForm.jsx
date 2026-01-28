@@ -26,6 +26,10 @@ const TaskForm = () => {
     }
   };
 
+  const checkTag = (tag) => {
+    return taskData.tags.some((item) => item === tag);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -44,9 +48,13 @@ const TaskForm = () => {
         />
         <div className="task_form_bottom">
           <div>
-            <Tag tagName="Dev" selectedTag={selectedTag} />
-            <Tag tagName="QA" selectedTag={selectedTag} />
-            <Tag tagName="Product Owner" selectedTag={selectedTag} />
+            <Tag tagName="DEV" selectedTag={selectedTag} selected={checkTag("DEV")} />
+            <Tag tagName="QA" selectedTag={selectedTag} selected={checkTag("QA")} />
+            <Tag
+              tagName="Product Owner"
+              selectedTag={selectedTag}
+              selected={checkTag("Product Owner")}
+            />
           </div>
           <div>
             <select

@@ -4,6 +4,8 @@ let highest = 0;
 let secondHighest = 0;
 for (let i = 0; i < arr.length; i++) {
   if (arr[i] > highest) {
-    
+    secondHighest = highest
+    highest = arr[i]
 }
 }
+console.log(secondHighest)
