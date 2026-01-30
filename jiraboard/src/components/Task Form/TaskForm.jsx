@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Tag from "../Tag/Tag";
 import "./TaskForm.css";
-const TaskForm = () => {
+const TaskForm = ({setTasks}) => {
   const [taskData, setTaskSData] = useState({
     task: "",
     status: "Ready for Development",
@@ -14,26 +14,40 @@ const TaskForm = () => {
   };
 
   const selectedTag = (tag) => {
-    if (taskData.tags.some((item) => item === tag)) {
-      const filterdTags = taskData.tags.filter((item) => item !== tag);
-      setTaskSData((prev) => {
-        return { ...prev, tags: filterdTags };
-      });
-    } else {
-      setTaskSData((prev) => {
-        return { ...prev, tags: [...prev.tags, tag] };
-      });
-    }
+    setTaskSData((prev) => {
+      const isSelected = prev.tags.includes(tag);
+      const tags = isSelected
+        ? prev.tags.filter((item) => item !== tag)
+        : [...prev.tags, tag];
+      return { ...prev, tags };
+    });
   };
+  // if (taskData.tags.some((item) => item === tag)) {
+  //   const filterdTags = taskData.tags.filter((item) => item !== tag);
+  //   setTaskSData((prev) => {
+  //     return { ...prev, tags: filterdTags };
+  //   });
+  // } else {
+  //   setTaskSData((prev) => {
+  //     return { ...prev, tags: [...prev.tags, tag] };
+  //   });
+  // }
 
   const checkTag = (tag) => {
     return taskData.tags.some((item) => item === tag);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(taskData);
+  const handleSubmit = () => {
+    // e.preventDefault();
+    setTasks((prev)=>{
+      return [...prev, taskData]
+    })
+    setTaskSData({
+    task: "",
+    status: "Ready for Development",
+    tags: [],
+  })
+    // console.log(taskData);
   };
   return (
     <header className="app_header">
@@ -48,8 +62,16 @@ const TaskForm = () => {
         />
         <div className="task_form_bottom">
           <div>
-            <Tag tagName="DEV" selectedTag={selectedTag} selected={checkTag("DEV")} />
-            <Tag tagName="QA" selectedTag={selectedTag} selected={checkTag("QA")} />
+            <Tag
+              tagName="DEV"
+              selectedTag={selectedTag}
+              selected={checkTag("DEV")}
+            />
+            <Tag
+              tagName="QA"
+              selectedTag={selectedTag}
+              selected={checkTag("QA")}
+            />
             <Tag
               tagName="Product Owner"
               selectedTag={selectedTag}
@@ -71,7 +93,7 @@ const TaskForm = () => {
               <option value="Ready for Test">Ready for Test</option>
               <option value="Closed">Closed</option>
             </select>
-            <button onClick={handleSubmit} className="task_submit">
+            <button onClick={()=>handleSubmit()} className="task_submit">
               Task Submit
             </button>
           </div>
