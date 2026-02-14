@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const databaseConnection = async () => {
   mongoose
-    .connect("mongodb+srv://book:books@cluster0.wikr5un.mongodb.net/")
+    .connect()
     .then(() => {
       console.log("connected to database successfully...");
     })

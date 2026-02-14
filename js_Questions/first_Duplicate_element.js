@@ -13,7 +13,7 @@ for (let i = 0; i < str.length; i++) {
 console.log(obj);
 
 for (x in obj) {
-  if (obj[x] == 1) {
+  if (obj[x] > 1) {
     result = x;
     break;
   }

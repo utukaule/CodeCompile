@@ -9,10 +9,12 @@ export const userBaseUrl = axios.create({
 
 bookBaseUrl.interceptors.request.use(
   (config) => {
+    // get stored session
     const authToken = localStorage.getItem("userAuth");
     const token = JSON.parse(authToken)?.token;
 
     if (token) {
+      // Attach authrization Header
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
@@ -22,6 +24,7 @@ bookBaseUrl.interceptors.request.use(
   },
 );
 
+// Global Logout Handler
 bookBaseUrl.interceptors.response.use(
   (response) => response,
   (error) => {

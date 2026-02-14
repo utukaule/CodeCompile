@@ -55,6 +55,16 @@ const Home = () => {
         console.log(data);
       } else {
         const { data } = await bookBaseUrl.put("/updatebook", bookForm);
+         if (
+          !bookForm.BookName ||
+          !bookForm.BookTitle ||
+          !bookForm.Author ||
+          !bookForm.PublishDate ||
+          !bookForm.SellingPrice
+        ) {
+          alert("All fields are required...");
+          return;
+        }
         if (data?.Success) {
           getAllBookList();
           alert(data?.Message);
